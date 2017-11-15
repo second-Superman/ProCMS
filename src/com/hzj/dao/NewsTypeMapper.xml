@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hzj.dao.NewsTypeMapper">
+	<resultMap id="BaseResultMap" type="com.hzj.beans.NewsType">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<select id="selectByAll" resultMap="BaseResultMap">
+		select
+		id,name
+		from news_type order by id desc
+	</select>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+
+		select
+		id,name
+		from news_type
+		where id =
+		#{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+
+		delete from
+		news_type
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.hzj.beans.NewsType">
+
+		insert into news_type (id,
+		name)
+		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
+	</insert>
+
+
+
+	<update id="updateByPrimaryKey" parameterType="com.hzj.beans.NewsType">
+
+		update news_type
+		set name = #{name,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

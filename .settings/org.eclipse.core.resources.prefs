@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+encoding//WebRoot/login.jsp=UTF-8
+encoding//WebRoot/res/umeditor1.2.3/jsp/Uploader.java=UTF-8
+encoding//src/com/hzj/filter/AdminFilter.java=GBK
+encoding//src/com/hzj/servlet/LoginServlet.java=GBK
+encoding//src/com/hzj/servlet/LoginServletJSON.java=GBK
+encoding//src/com/hzj/servlet/NewTypeServlet.java=GBK
+encoding//src/com/hzj/servlet/NewsServlet.java=GBK
+encoding//src/com/hzj/util/validate/ValidateUtil.java=GBK

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hzj.dao.NewsMapper">
+
+	<resultMap id="BaseResultMap" type="com.hzj.beans.News">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="st" property="st" jdbcType="VARCHAR" />
+		<result column="author" property="author" jdbcType="VARCHAR" />
+		<result column="browser_count" property="browserCount"
+			jdbcType="INTEGER" />
+		<result column="photo" property="photo" jdbcType="VARCHAR" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<association property="newsType" javaType="com.hzj.beans.NewsType">
+			<id column="news_type_id" property="id" />
+			<result column="name" property="name" />
+		</association>
+	</resultMap>
+
+
+
+	<select resultType="java.lang.String" id="selectPhotoById"
+		parameterType="java.lang.Integer">
+		SELECT 
+		
+		photo
+		
+		from
+		
+		news
+		
+		where
+		
+		id=#{id}
+	</select>
+
+
+	<select resultMap="BaseResultMap" id="selectByNewsTypeId"
+		parameterType="java.lang.Integer">
+
+		SELECT
+		news.id as id,
+		news.title as title,
+		news.st as st,
+		news.author as author,
+		news_type.id as news_type_id,
+		news_type.name as
+		`name`,
+		news.browser_count as browser_count,
+		news.photo as photo
+		from
+		news , news_type
+		where news.news_type_id=news_type.id
+		and
+		news_type.id=#{newsTypeId}
+		ORDER BY id desc
+
+	</select>
+
+
+	<select resultMap="BaseResultMap" id="selectByNewsTypeIdAndTop10"
+		parameterType="java.lang.Integer">
+
+		SELECT
+		news.id as id,
+		news.title as title,
+		news.st as st,
+		news.author as author,
+		news_type.id as news_type_id,
+		news_type.name as
+		`name`,
+		news.browser_count as browser_count,
+		news.photo as photo
+		from
+		news , news_type
+		where news.news_type_id=news_type.id
+		and
+		news_type.id=#{newsTypeId}
+		ORDER BY id desc
+		LIMIT 10
+
+	</select>
+
+
+	<select resultMap="BaseResultMap" id="selectByNewsTypeIdAndBrowserCountTop10"
+		parameterType="java.lang.Integer">
+		SELECT
+		news.id as id,
+		news.title as title,
+		news.st as st,
+		news.author as author,
+		news_type.id as news_type_id,
+		news_type.name as
+		`name`,
+		news.browser_count as browser_count,
+		news.photo as photo
+		from
+		news , news_type
+		where news.news_type_id=news_type.id
+		and
+		news_type.id=#{newsTypeId}
+		ORDER BY browser_count desc
+		LIMIT 10
+	</select>
+
+
+
+
+	<select id="selectByNewsTypeAnd1to3" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select * from news
+		where
+		news_type_id=#{newsTypeId}
+		ORDER BY id
+		desc
+		LIMIT 0,3
+	</select>
+
+	<select id="selectByNewsTypeAnd4to6" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select * from news
+		where
+		news_type_id=#{newsTypeId}
+		ORDER BY id
+		desc
+		LIMIT 3,3
+	</select>
+
+
+
+	<select id="selectByAll" resultMap="BaseResultMap">
+
+
+		SELECT
+		news.id as id,
+		news.title as title,
+		news.st as st,
+		news.author as author,
+		news_type.id
+		as news_type_id,
+		news_type.name as `name`,
+		news.browser_count as
+		browser_count,
+		news.photo as photo
+		from news , news_type
+		where
+		news.news_type_id=news_type.id
+
+	</select>
+
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.hzj.beans.News">
+
+		insert into news
+		(title,st,author,news_type_id,browser_count,photo)
+		VALUES
+		(#{title},#{st},#{author},#{newsType.id},#{browserCount},#{photo})
+
+	</insert>
+
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from news where id=#{id}
+	</delete>
+
+
+
+</mapper>

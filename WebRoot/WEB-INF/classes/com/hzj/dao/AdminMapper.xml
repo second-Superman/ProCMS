@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzj.dao.AdminMapper">
+	<resultMap id="BaseResultMap" type="com.hzj.beans.Admin">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="username" jdbcType="VARCHAR" property="username" />
+		<result column="password" jdbcType="VARCHAR" property="password" />
+	</resultMap>
+
+
+
+	<select id="selectByUsernameAndPassword" parameterType="com.hzj.beans.Admin"
+		resultMap="BaseResultMap">
+		select
+		id, username, `password`
+		from admin
+		where
+		username = #{username}
+		and
+		`password`=#{password}
+	</select>
+
+	<update id="updateByPrimaryKey" parameterType="com.hzj.beans.Admin">
+		update admin
+		set
+		password = #{password,jdbcType=VARCHAR}
+		where id =
+		#{id,jdbcType=INTEGER}
+	</update>
+</mapper>
